@@ -1,0 +1,8 @@
+- Perviously single values have been turned into gradients and animation curves. Have set all curves to have defaults but are unsure about how this will transfer into inspector and into created data (Mostly linear graphs rn)
+- Some materials are gone now (Best seen on the Mushroom Cloud)
+- Errors happen mostly only when it hits something...I think. Sometimes it triggers twice (or thrice) as well? Is this due to being played on awake? This way the Explode() and its setting would happen last? 
+	(Fireballs are messing it up. It's either Fireball A, Fireball B, or Fire Shadow that gets the error. But...the 		second set of them specifically. First set in BurstEmiter doesn't seem to trigger anything bad)
+- Everything looks a little off. It seems like certain particles are not presented in the right way. This could be due to the coded basic animation and color curves I created, or some kind of rendering issue with billboarding. 
+- Where did the shockwave and sparks go? They are present (or at least brighter) in the old system but not current. 
+
+Task Sheet: https://docs.google.com/spreadsheets/d/1s82nI-nRznx8gXTEhUDn8Aen2gMRrYSeoHUM0r7lrd0/edit?usp=sharing
