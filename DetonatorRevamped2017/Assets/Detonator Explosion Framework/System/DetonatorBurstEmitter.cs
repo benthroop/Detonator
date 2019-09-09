@@ -231,9 +231,9 @@ public class DetonatorBurstEmitter : DetonatorComponent
             //This is needed but can't work while playing (even though I Stop() it beforehand????) and also it sometimes works anyway
             //Update: It has to do with the second set of Fireballs created. Perhaps since there was already a first set, the second set 
             //is overwritting the component values and sending the error. Wouldn't explain why the error only happens sometimes though...
-            print("Starting " + gameObject.name);
+            print("Starting " + gameObject.name + " for a duration of " + duration);
             _particleMain.duration = duration;
-            print("Ending " + gameObject.name);
+            print("Ending " + gameObject.name + " with a duration of " + _particleMain.duration);
 
             _particleMain.loop = false;
             _particleMain.simulationSpace = ParticleSystemSimulationSpace.World;
