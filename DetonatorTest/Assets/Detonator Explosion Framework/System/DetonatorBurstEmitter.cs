@@ -81,8 +81,13 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	
     public void Awake()
     {
-		_particleSystem = (gameObject.AddComponent<ParticleSystem>()) as ParticleSystem;
-		_psRenderer = (gameObject.GetComponent<ParticleSystemRenderer>()) as ParticleSystemRenderer;
+		_particleSystem = (gameObject.AddComponent<ParticleSystem>()) as ParticleSystem;		
+
+		if (gameObject.GetComponent<ParticleSystemRenderer>())
+			_psRenderer = gameObject.GetComponent<ParticleSystemRenderer>();
+		else
+			_psRenderer = (gameObject.AddComponent<ParticleSystemRenderer>()) as ParticleSystemRenderer;
+
 		_psEmission = _particleSystem.emission;
 		_psMain = _particleSystem.main;
 		_psVelocityOverLifetime = _particleSystem.limitVelocityOverLifetime;
@@ -92,7 +97,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		_psRotationOverLifetime = _particleSystem.rotationOverLifetime;
 
 		_psMain.loop = false;
-		_psMain.startLifetime = 2f;
+		//_psMain.startLifetime = 2f;
 		_psMain.startSpeed = 0f;
 		_psMain.randomizeRotationDirection = .5f;
 
@@ -117,11 +122,6 @@ public class DetonatorBurstEmitter : DetonatorComponent
 
 		_psRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 		_psRenderer.receiveShadows = true;
-
-		if (gameObject.GetComponent<ParticleSystemRenderer>())
-			_psRenderer = gameObject.GetComponent<ParticleSystemRenderer>();
-		else
-			_psRenderer = (gameObject.AddComponent<ParticleSystemRenderer>()) as ParticleSystemRenderer;
 
 		//Just to start and make sure there is no interference
 		_psEmission.enabled = false;
@@ -149,10 +149,11 @@ public class DetonatorBurstEmitter : DetonatorComponent
 
 		//Temp curve, need to check if this is accurate
 		_psSoLCurve.AddKey(0.0f, 0.1f);
-        _psSoLCurve.AddKey(0.75f, 1f);
-        //_psSoLCurve.AddKey(0.25f, 1.9f);
-        //_psSoLCurve.AddKey(1f, 2.1f); //This is affected by size grow, unsure of how that affects
-		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(sizeGrow, _psSoLCurve);
+        //_psSoLCurve.AddKey(0.75f, 1f);
+        _psSoLCurve.AddKey(0.25f, 1.9f);
+        _psSoLCurve.AddKey(1f, 2.1f); //This is affected by size grow, unsure of how that affects
+		//_psSoLMMCurve = new ParticleSystem.MinMaxCurve(sizeGrow, _psSoLCurve);
+		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(1, _psSoLCurve);
 		_psSizeOverLifetime.size = _psSoLMMCurve;
 
         _particleEmitter.emit = false;
@@ -181,19 +182,22 @@ public class DetonatorBurstEmitter : DetonatorComponent
 			float oldSize = SizeFunction(elapsed - epsilon);
 			float newSize = SizeFunction(elapsed);
 			float growth = ((newSize / oldSize) - 1) / epsilon;
-			_particleAnimator.sizeGrow = growth;
-			
-			//New
-			_psSoLMMCurve = new ParticleSystem.MinMaxCurve(growth, _psSoLCurve);
-			_psSizeOverLifetime.size = _psSoLMMCurve;
+
+			if (_particleAnimator)
+				_particleAnimator.sizeGrow = growth;
+			//
+			////New
+			//_psSoLMMCurve = new ParticleSystem.MinMaxCurve(growth, _psSoLCurve);
+			//_psSizeOverLifetime.size = _psSoLMMCurve;
 		}
 		else
 		{
-			_particleAnimator.sizeGrow = sizeGrow;
-
-			//New
-			_psSoLMMCurve = new ParticleSystem.MinMaxCurve(sizeGrow, _psSoLCurve);
-			_psSizeOverLifetime.size = _psSoLMMCurve;
+			if (_particleAnimator)
+				_particleAnimator.sizeGrow = sizeGrow;
+//
+			////New
+			//_psSoLMMCurve = new ParticleSystem.MinMaxCurve(sizeGrow, _psSoLCurve);
+			//_psSizeOverLifetime.size = _psSoLMMCurve;
 		}
 		
 		//delayed explosion
@@ -237,7 +241,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
     override public void Explode()
     {
 		if (on)
-		{
+		{			
 			//New - Good
 			if (useWorldSpace)
 				_psMain.simulationSpace = ParticleSystemSimulationSpace.World; 
@@ -351,6 +355,11 @@ public class DetonatorBurstEmitter : DetonatorComponent
 					_tmpDuration = _scaledDuration + (Random.value * _scaledDurationVariation);
 					_particleEmitter.Emit(_tmpPos, _tmpDir, _tmpParticleSize, _tmpDuration, color, _randomizedRotation, _tmpAngularVelocity);
 				}
+
+				//New stuff
+
+				_psMain.startLifetime = _tmpDuration;
+				_psRenderer.material = material;
 					
 				_emitTime = Time.time;
 				_delayedExplosionStarted = false;
@@ -361,6 +370,11 @@ public class DetonatorBurstEmitter : DetonatorComponent
 				_psColorOverLifetime.enabled = true;
 				_psSizeOverLifetime.enabled = true;
 				_psVelocityOverLifetime.enabled = true;
+
+				_psEmission.enabled = false;
+				//_particleEmitter.enabled = false;
+				//_particleRenderer.enabled = false;
+				//Destroy (_particleAnimator);
 			}
 			else
 			{
