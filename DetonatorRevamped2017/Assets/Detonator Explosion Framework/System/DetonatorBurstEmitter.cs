@@ -31,6 +31,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
     private ParticleSystem.ColorOverLifetimeModule _colorOverLifetime;
     private ParticleSystem.ForceOverLifetimeModule _forceOverLifetime;
     private ParticleSystem.EmitParams _emitParams;
+    private ParticleSystem.ShapeModule _psShape;
 
     public float damping = 1f;
 	public float startRadius = 1f;
@@ -79,6 +80,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
         _particleMain = _particleSystem.main;
         _particleMain.startLifetime = duration;
         renderMode = gameObject.GetComponent<ParticleSystemRenderer>();
+        _psShape = _particleSystem.shape;
         //-Z
         //OR do I need 
         //_particleSystem = gameObject.AddComponent<ParticleSystem>() as ParticleSystem;

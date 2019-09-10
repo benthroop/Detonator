@@ -16,17 +16,19 @@ public class DetonatorBurstEmitter : DetonatorComponent
 {
 
 	private ParticleSystem _particleSystem;
-	ParticleSystemRenderer _psRenderer;
-	ParticleSystem.EmissionModule _psEmission;
-	ParticleSystem.MainModule _psMain;
-	ParticleSystem.ColorOverLifetimeModule _psColorOverLifetime;
-	Gradient _psCoLGradient = new Gradient();
-	GradientAlphaKey[] _psCoLGradientAlpha;
-	GradientColorKey[] _psCoLGradientColor;
-	ParticleSystem.LimitVelocityOverLifetimeModule _psVelocityOverLifetime;
-	ParticleSystem.SizeOverLifetimeModule _psSizeOverLifetime;
-	AnimationCurve _psSoLCurve = new AnimationCurve();
-	ParticleSystem.MinMaxCurve _psSoLMMCurve;
+	private ParticleSystemRenderer _psRenderer;
+	private ParticleSystem.EmissionModule _psEmission;
+	private ParticleSystem.ShapeModule _psShape;
+	private ParticleSystem.MainModule _psMain;
+	private ParticleSystem.ColorOverLifetimeModule _psColorOverLifetime;
+	private Gradient _psCoLGradient = new Gradient();
+	private GradientAlphaKey[] _psCoLGradientAlpha;
+	private GradientColorKey[] _psCoLGradientColor;
+	private ParticleSystem.LimitVelocityOverLifetimeModule _psVelocityOverLifetime;
+	private ParticleSystem.SizeOverLifetimeModule _psSizeOverLifetime;
+	private ParticleSystem.RotationOverLifetimeModule _psRotationOverLifetime;
+	private AnimationCurve _psSoLCurve = new AnimationCurve();
+	private ParticleSystem.MinMaxCurve _psSoLMMCurve;
 	ParticleSystemRenderMode _psRenderMode = ParticleSystemRenderMode.Billboard;
 
 	
@@ -80,11 +82,41 @@ public class DetonatorBurstEmitter : DetonatorComponent
     public void Awake()
     {
 		_particleSystem = (gameObject.AddComponent<ParticleSystem>()) as ParticleSystem;
+		_psRenderer = (gameObject.GetComponent<ParticleSystemRenderer>()) as ParticleSystemRenderer;
 		_psEmission = _particleSystem.emission;
 		_psMain = _particleSystem.main;
 		_psVelocityOverLifetime = _particleSystem.limitVelocityOverLifetime;
 		_psSizeOverLifetime = _particleSystem.sizeOverLifetime;
 		_psColorOverLifetime = _particleSystem.colorOverLifetime;
+		_psShape = _particleSystem.shape;
+		_psRotationOverLifetime = _particleSystem.rotationOverLifetime;
+
+		_psMain.loop = false;
+		_psMain.startLifetime = 2f;
+		_psMain.startSpeed = 0f;
+		_psMain.randomizeRotationDirection = .5f;
+
+		_psEmission.rateOverTime = 0;
+		_psEmission.SetBursts(new ParticleSystem.Burst[] { new ParticleSystem.Burst(0.0f, 1, 1)});   
+
+		_psVelocityOverLifetime.enabled = true;
+		_psVelocityOverLifetime.separateAxes = true;
+		_psVelocityOverLifetime.limitX = .1f;
+		_psVelocityOverLifetime.limitY = .1f;
+		_psVelocityOverLifetime.limitZ = .1f;
+		_psVelocityOverLifetime.space = ParticleSystemSimulationSpace.World;
+		_psVelocityOverLifetime.dampen = 1; //See if this needs to get rid of all other dampen references
+
+		_psShape.enabled = true;
+		_psShape.shapeType = ParticleSystemShapeType.Sphere;
+		_psShape.radius = 0.1f;
+
+		_psRotationOverLifetime.enabled = true;
+		_psRotationOverLifetime.separateAxes = true; //This is only used because Angular Velocity can't be set anywhere...
+		//_psRotationOverLifetime.z = Random.Range(5f, 20f); //Check this
+
+		_psRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+		_psRenderer.receiveShadows = true;
 
 		if (gameObject.GetComponent<ParticleSystemRenderer>())
 			_psRenderer = gameObject.GetComponent<ParticleSystemRenderer>();
@@ -117,7 +149,9 @@ public class DetonatorBurstEmitter : DetonatorComponent
 
 		//Temp curve, need to check if this is accurate
 		_psSoLCurve.AddKey(0.0f, 0.1f);
-        _psSoLCurve.AddKey(0.75f, 1.0f);
+        _psSoLCurve.AddKey(0.75f, 1f);
+        //_psSoLCurve.AddKey(0.25f, 1.9f);
+        //_psSoLCurve.AddKey(1f, 2.1f); //This is affected by size grow, unsure of how that affects
 		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(sizeGrow, _psSoLCurve);
 		_psSizeOverLifetime.size = _psSoLMMCurve;
 
@@ -241,10 +275,10 @@ public class DetonatorBurstEmitter : DetonatorComponent
 
 					for (int i = 0; i < colorAnimation.Length; i++)
 					{
-						_psCoLGradientColor[i] = new GradientColorKey(colorAnimation[i], timeDivision * i);
-						_psCoLGradientAlpha[i] = new GradientAlphaKey(colorAnimation[i].a, timeDivision * i);
+						_psCoLGradientColor[i] = new GradientColorKey(colorAnimation[i], (timeDivision * i) + timeDivision);
+						_psCoLGradientAlpha[i] = new GradientAlphaKey(colorAnimation[i].a, (timeDivision * i) + timeDivision);
 
-						print("setting color at " + timeDivision * i + " to (" + colorAnimation[i].r + ", " + colorAnimation[i].g + ", " + colorAnimation[i].b + ")");
+						//print("setting color at " + timeDivision * i + " to (" + colorAnimation[i].r + ", " + colorAnimation[i].g + ", " + colorAnimation[i].b + ")");
 					}
 
 					_psCoLGradient.SetKeys(_psCoLGradientColor, _psCoLGradientAlpha);
