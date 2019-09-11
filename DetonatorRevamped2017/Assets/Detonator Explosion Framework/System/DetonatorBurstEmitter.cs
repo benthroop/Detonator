@@ -32,9 +32,9 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	private ParticleSystem.MinMaxCurve _psSoLMMCurve;
 	ParticleSystemRenderMode _psRenderMode = ParticleSystemRenderMode.Billboard;
 	
-    private ParticleEmitter _particleEmitter;
-    private ParticleRenderer _particleRenderer;
-    private ParticleAnimator _particleAnimator;
+    //private ParticleEmitter _particleEmitter;
+    //private ParticleRenderer _particleRenderer;
+    //private ParticleAnimator _particleAnimator;
 
 	private float _baseDamping = 0.1300004f;
 	private float _baseSize = 1f;
@@ -56,7 +56,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	public float angularVelocity = 20f;
 	public bool randomRotation = true;
 	
-	public ParticleRenderMode renderMode;
+	//public ParticleRenderMode renderMode;
 	
 	//TODO make this based on some var
 	/*
@@ -127,21 +127,21 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		//Just to start and make sure there is no interference
 		_psEmission.enabled = false;
 
-        _particleEmitter = (gameObject.AddComponent<EllipsoidParticleEmitter>()) as ParticleEmitter;
-        _particleRenderer = (gameObject.AddComponent<ParticleRenderer>()) as ParticleRenderer;
-        _particleAnimator = (gameObject.AddComponent<ParticleAnimator>()) as ParticleAnimator;
+        //_particleEmitter = (gameObject.AddComponent<EllipsoidParticleEmitter>()) as ParticleEmitter;
+        //_particleRenderer = (gameObject.AddComponent<ParticleRenderer>()) as ParticleRenderer;
+        //_particleAnimator = (gameObject.AddComponent<ParticleAnimator>()) as ParticleAnimator;
 
 		//New
 		_particleSystem.hideFlags = HideFlags.HideAndDontSave;
 
-		_particleEmitter.hideFlags = HideFlags.HideAndDontSave;
-		_particleRenderer.hideFlags = HideFlags.HideAndDontSave;
-		_particleAnimator.hideFlags = HideFlags.HideAndDontSave;
+		//_particleEmitter.hideFlags = HideFlags.HideAndDontSave;
+		//_particleRenderer.hideFlags = HideFlags.HideAndDontSave;
+		//_particleAnimator.hideFlags = HideFlags.HideAndDontSave;
 		
 		//New
 		_psVelocityOverLifetime.dampen = _baseDamping;
 
-		_particleAnimator.damping = _baseDamping;
+		//_particleAnimator.damping = _baseDamping;
 
 		//New
 		_psRenderer.maxParticleSize = maxScreenSize;
@@ -157,11 +157,11 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(1, _psSoLCurve);
 		_psSizeOverLifetime.size = _psSoLMMCurve;
 
-        _particleEmitter.emit = false;
-		_particleRenderer.maxParticleSize = maxScreenSize;
-        _particleRenderer.material = material;
-		_particleRenderer.material.color = Color.white; //workaround for this not being settable elsewhere
-		_particleAnimator.sizeGrow = sizeGrow;
+        //_particleEmitter.emit = false;
+		//_particleRenderer.maxParticleSize = maxScreenSize;
+        //_particleRenderer.material = material;
+		//_particleRenderer.material.color = Color.white; //workaround for this not being settable elsewhere
+		//_particleAnimator.sizeGrow = sizeGrow;
 		
 		if (explodeOnAwake)
 		{
@@ -184,19 +184,19 @@ public class DetonatorBurstEmitter : DetonatorComponent
 			float newSize = SizeFunction(elapsed);
 			float growth = ((newSize / oldSize) - 1) / epsilon;
 
-			if (_particleAnimator)
-				_particleAnimator.sizeGrow = growth;
-			//
-			////New
+			//if (_particleAnimator)
+			//_particleAnimator.sizeGrow = growth;
+			
+			//New - This messes stuff up. Makes it implode. Cool effect.. but why
 			//_psSoLMMCurve = new ParticleSystem.MinMaxCurve(growth, _psSoLCurve);
 			//_psSizeOverLifetime.size = _psSoLMMCurve;
 		}
 		else
 		{
-			if (_particleAnimator)
-				_particleAnimator.sizeGrow = sizeGrow;
-//
-			////New
+			//if (_particleAnimator)
+			//	_particleAnimator.sizeGrow = sizeGrow;
+
+			//New
 			//_psSoLMMCurve = new ParticleSystem.MinMaxCurve(sizeGrow, _psSoLCurve);
 			//_psSizeOverLifetime.size = _psSoLMMCurve;
 		}
@@ -249,13 +249,13 @@ public class DetonatorBurstEmitter : DetonatorComponent
 			else			
 				_psMain.simulationSpace = ParticleSystemSimulationSpace.Local; 
 			
-			_particleEmitter.useWorldSpace = useWorldSpace;
+			//_particleEmitter.useWorldSpace = useWorldSpace;
 			
 			_scaledDuration = timeScale * duration;
 			_scaledDurationVariation = timeScale * durationVariation;
 			_scaledStartRadius = size * startRadius;
 
-			_particleRenderer.particleRenderMode = renderMode;
+			//_particleRenderer.particleRenderMode = renderMode;
 			
 			if (!_delayedExplosionStarted)
 			{
@@ -263,15 +263,15 @@ public class DetonatorBurstEmitter : DetonatorComponent
 			}
 			if (_explodeDelay <= 0) 
 			{
-				Color[] modifiedColors = _particleAnimator.colorAnimation;
+				//Color[] modifiedColors = _particleAnimator.colorAnimation;
 				
 				if (useExplicitColorAnimation)
 				{
-					modifiedColors[0] = colorAnimation[0];
-					modifiedColors[1] = colorAnimation[1];
-					modifiedColors[2] = colorAnimation[2];
-					modifiedColors[3] = colorAnimation[3];
-					modifiedColors[4] = colorAnimation[4];
+					//modifiedColors[0] = colorAnimation[0];
+					//modifiedColors[1] = colorAnimation[1];
+					//modifiedColors[2] = colorAnimation[2];
+					//modifiedColors[3] = colorAnimation[3];
+					//modifiedColors[4] = colorAnimation[4];
 
 					//New - Needs to look at lifetime and other values, not seeing a change
 					float timeDivision = 1.0f / colorAnimation.Length;
@@ -291,11 +291,11 @@ public class DetonatorBurstEmitter : DetonatorComponent
 				}
 				else //auto fade
 				{
-					modifiedColors[0] = new Color(color.r, color.g, color.b, (color.a * .7f));
-					modifiedColors[1] = new Color(color.r, color.g, color.b, (color.a * 1f));
-					modifiedColors[2] = new Color(color.r, color.g, color.b, (color.a * .5f));
-					modifiedColors[3] = new Color(color.r, color.g, color.b, (color.a * .3f));
-					modifiedColors[4] = new Color(color.r, color.g, color.b, (color.a * 0f));
+					//modifiedColors[0] = new Color(color.r, color.g, color.b, (color.a * .7f));
+					//modifiedColors[1] = new Color(color.r, color.g, color.b, (color.a * 1f));
+					//modifiedColors[2] = new Color(color.r, color.g, color.b, (color.a * .5f));
+					//modifiedColors[3] = new Color(color.r, color.g, color.b, (color.a * .3f));
+					//modifiedColors[4] = new Color(color.r, color.g, color.b, (color.a * 0f));
 
 					//New - Same as above, unsure. This isn't used either, need to confirm later
 					float timeDivision = 1 / colorAnimation.Length;
@@ -314,20 +314,25 @@ public class DetonatorBurstEmitter : DetonatorComponent
 					_psCoLGradient.SetKeys(_psCoLGradientColor, _psCoLGradientAlpha);
 					_psColorOverLifetime.color = _psCoLGradient;
 				}
-				_particleAnimator.colorAnimation = modifiedColors;
-				_particleRenderer.material = material;
-				_particleAnimator.force = force;
+				//_particleAnimator.colorAnimation = modifiedColors;
+				//_particleRenderer.material = material;
+				//_particleAnimator.force = force;
 				_tmpCount = count * detail;
 				if (_tmpCount < 1) _tmpCount = 1;
 				
-				if (_particleEmitter.useWorldSpace == true)
-				{
+				if (useWorldSpace)
 					_thisPos = this.gameObject.transform.position;
-				}
 				else
-				{
 					_thisPos = new Vector3(0,0,0);
-				}
+				
+				//if (_particleEmitter.useWorldSpace == true)
+				//{
+				//	_thisPos = this.gameObject.transform.position;
+				//}
+				//else
+				//{
+				//	_thisPos = new Vector3(0,0,0);
+				//}
 
 				for (int i = 1; i <= _tmpCount; i++)
 				{
@@ -386,9 +391,9 @@ public class DetonatorBurstEmitter : DetonatorComponent
 				//_particleSystem.Emit(_psEmitParams, 1);
 
 				_psEmission.enabled = false;
-				Destroy (_particleEmitter);
-				Destroy (_particleRenderer);
-				Destroy (_particleAnimator);
+				//Destroy (_particleEmitter);
+				//Destroy (_particleRenderer);
+				//Destroy (_particleAnimator);
 			}
 			else
 			{

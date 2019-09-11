@@ -62,7 +62,7 @@ public class DetonatorShockwave : DetonatorComponent
 		_shockwaveEmitter.size = size;		
 		_shockwaveEmitter.explodeDelayMin = explodeDelayMin;
 		_shockwaveEmitter.explodeDelayMax = explodeDelayMax;
-		_shockwaveEmitter.renderMode = renderMode;
+		//_shockwaveEmitter.renderMode = renderMode;
 	}
 
     public void Reset()
