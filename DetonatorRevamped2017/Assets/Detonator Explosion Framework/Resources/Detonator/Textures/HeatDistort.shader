@@ -38,9 +38,19 @@ half4 frag( v2f i ) : COLOR
 	float2 offset = bump * _BumpAmt * _GrabTexture_TexelSize.xy;
 	i.uvgrab.xy = offset * i.uvgrab.z + i.uvgrab.xy;
 	
-	half4 col = tex2Dproj( _GrabTexture, i.uvgrab.xyzw );
-	half4 tint = tex2D( _MainTex, i.uvmain );
-	return col * tint;
+	//half4 col = tex2Dproj( _GrabTexture, i.uvgrab.xyw );
+	//half4 col = tex2Dproj( _GrabTexture, i.uvgrab);
+	//half4 tint = tex2D( _MainTex, i.uvmain );
+	//return col;// * tint;
+	//return tint;
+
+	float2 uv = i.uvgrab.xy / i.uvgrab.w;
+ 
+    half4 col = tex2D( _GrabTexture, uv );
+    //half4 col = tex2Dproj( _GrabTexture, i.uvgrab.xyw );
+ 
+    half4 tint = tex2D( _MainTex, i.uvmain );
+    return col * tint;
 }
 ENDCG
 
@@ -48,6 +58,7 @@ Category {
 
 	// We must be transparent, so other objects are drawn before this one.
 	Tags { "Queue"="Transparent+100" "RenderType"="Opaque" }
+	//Tags { "Queue"="Transparent" }
 
 
 	SubShader {
@@ -90,17 +101,6 @@ v2f vert (appdata_t v)
 	return o;
 }
 ENDCG
-		}
-	}
-
-	// ------------------------------------------------------------------
-	// Fallback for older cards and Unity non-Pro
-	
-	SubShader {
-		Blend DstColor Zero
-		Pass {
-			Name "BASE"
-			SetTexture [_MainTex] {	combine texture }
 		}
 	}
 }

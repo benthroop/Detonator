@@ -14,9 +14,7 @@ public class DetonatorShockwave : DetonatorComponent
 	private DetonatorBurstEmitter _shockwaveEmitter;
 	public Material shockwaveMaterial;
 	
-    //Changed to make compatable -Z
-	//public ParticleSystemRenderer renderMode;
-	//public ParticleRenderMode renderMode;
+	public ParticleRenderMode renderMode;
 		
 	override public void Init()
 	{
@@ -64,8 +62,7 @@ public class DetonatorShockwave : DetonatorComponent
 		_shockwaveEmitter.size = size;		
 		_shockwaveEmitter.explodeDelayMin = explodeDelayMin;
 		_shockwaveEmitter.explodeDelayMax = explodeDelayMax;
-		_shockwaveEmitter.explodeDelayMax = explodeDelayMax;
-		//_shockwaveEmitter.renderMode = renderMode;
+		_shockwaveEmitter.renderMode = renderMode;
 	}
 
     public void Reset()
@@ -78,7 +75,6 @@ public class DetonatorShockwave : DetonatorComponent
 		explodeDelayMax = 0f;
 		color = _baseColor;
 		velocity = _baseVelocity;
-        //renderMode = _shockwaveEmitter.renderMode;
     }
 
     override public void Explode()
