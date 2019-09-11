@@ -5,11 +5,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 400000}
-  - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  - component: {fileID: 11400002}
   m_Layer: 0
   m_Name: Detonator-Chunks
   m_TagString: Untagged
@@ -27,11 +27,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .00763237476, y: .788020968, z: .01810956}
+  m_LocalPosition: {x: 0.0076323748, y: 0.78802097, z: 0.01810956}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1002 &400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 10
-  color: {r: .65218699, g: .884615362, b: .863160491, a: .545098066}
+  color: {r: 0.652187, g: 0.88461536, b: 0.8631605, a: 0.54509807}
   explodeOnStart: 1
   duration: 3.2971828
   detail: 1
@@ -88,7 +89,7 @@ MonoBehaviour:
   on: 1
   detonatorControlled: 1
   startSize: 1
-  size: .94599247
+  size: 0.94599247
   explodeDelayMin: 0
   explodeDelayMax: 0
   startDuration: 2
@@ -105,11 +106,12 @@ MonoBehaviour:
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   detailThreshold: 0
-  sprayObject: {fileID: 100004, guid: 5cae1a02f5362443284e452c3020967f, type: 2}
+  sprayObject: {fileID: 1633454251242882, guid: 7d84ced170ec90a4691f97760c3e73fb,
+    type: 2}
   count: 33
   startingRadius: 5
-  minScale: .200491905
-  maxScale: .538931429
+  minScale: 0.2004919
+  maxScale: 0.5389314
 --- !u!1002 &11400003
 EditorExtensionImpl:
   serializedVersion: 6
@@ -124,7 +126,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1
 --- !u!1002 &100100001
 EditorExtensionImpl:
   serializedVersion: 6
