@@ -18,6 +18,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	private ParticleSystem _particleSystem;
 	private ParticleSystemRenderer _psRenderer;
 	private ParticleSystem.EmissionModule _psEmission;
+	private ParticleSystem.EmitParams _psEmitParams;
 	private ParticleSystem.ShapeModule _psShape;
 	private ParticleSystem.MainModule _psMain;
 	private ParticleSystem.ColorOverLifetimeModule _psColorOverLifetime;
@@ -30,7 +31,6 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	private AnimationCurve _psSoLCurve = new AnimationCurve();
 	private ParticleSystem.MinMaxCurve _psSoLMMCurve;
 	ParticleSystemRenderMode _psRenderMode = ParticleSystemRenderMode.Billboard;
-
 	
     private ParticleEmitter _particleEmitter;
     private ParticleRenderer _particleRenderer;
@@ -88,6 +88,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		else
 			_psRenderer = (gameObject.AddComponent<ParticleSystemRenderer>()) as ParticleSystemRenderer;
 
+		_psEmitParams = new ParticleSystem.EmitParams();
 		_psEmission = _particleSystem.emission;
 		_psMain = _particleSystem.main;
 		_psVelocityOverLifetime = _particleSystem.limitVelocityOverLifetime;
@@ -353,7 +354,16 @@ public class DetonatorBurstEmitter : DetonatorComponent
 					 _tmpParticleSize = size * (particleSize + (Random.value * sizeVariation));
 					
 					_tmpDuration = _scaledDuration + (Random.value * _scaledDurationVariation);
-					_particleEmitter.Emit(_tmpPos, _tmpDir, _tmpParticleSize, _tmpDuration, color, _randomizedRotation, _tmpAngularVelocity);
+					//_particleEmitter.Emit(_tmpPos, _tmpDir, _tmpParticleSize, _tmpDuration, color, _randomizedRotation, _tmpAngularVelocity);
+
+					_psEmitParams.position = _tmpPos;
+					_psEmitParams.velocity = _tmpDir;
+					_psEmitParams.startSize = _tmpParticleSize;
+					_psEmitParams.startLifetime = _tmpDuration;
+					_psEmitParams.startColor = color;
+					_psEmitParams.rotation = _randomizedRotation;
+					_psEmitParams.angularVelocity = _tmpAngularVelocity;
+					_particleSystem.Emit(_psEmitParams, 1);
 				}
 
 				//New stuff
@@ -371,10 +381,14 @@ public class DetonatorBurstEmitter : DetonatorComponent
 				_psSizeOverLifetime.enabled = true;
 				_psVelocityOverLifetime.enabled = true;
 
+				//_psEmitParams = new ParticleSystem.EmitParams();
+				//_psEmitParams.startColor = Color.cyan;
+				//_particleSystem.Emit(_psEmitParams, 1);
+
 				_psEmission.enabled = false;
-				//_particleEmitter.enabled = false;
-				//_particleRenderer.enabled = false;
-				//Destroy (_particleAnimator);
+				Destroy (_particleEmitter);
+				Destroy (_particleRenderer);
+				Destroy (_particleAnimator);
 			}
 			else
 			{

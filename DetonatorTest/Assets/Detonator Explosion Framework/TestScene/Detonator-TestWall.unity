@@ -806,7 +806,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2136842285
+  randomSeed: -1165204055
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -1582,7 +1582,7 @@ ParticleSystem:
     enabled: 1
     x:
       serializedVersion: 2
-      minMaxState: 3
+      minMaxState: 0
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -1623,7 +1623,7 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 3
+      minMaxState: 0
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -1664,7 +1664,7 @@ ParticleSystem:
         m_RotationOrder: 4
     curve:
       serializedVersion: 2
-      minMaxState: 3
+      minMaxState: 0
       scalar: 0.34906584
       minScalar: 0
       maxCurve:
@@ -4155,7 +4155,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 580648396
+  randomSeed: 1778656409
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4806,26 +4806,26 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 19.593613
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.1
-          inSlope: 1.1999999
-          outSlope: 1.1999999
+          value: 0
+          inSlope: 4.8796525
+          outSlope: 4.8796525
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.75
+          time: 0.20065308
           value: 1
-          inSlope: 1.1999999
-          outSlope: 1.1999999
+          inSlope: 5.042431
+          outSlope: 5.042431
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -5014,7 +5014,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 16.962639
+      scalar: 0.34906584
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
