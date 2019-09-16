@@ -14,7 +14,7 @@ public class DetonatorShockwave : DetonatorComponent
 	private DetonatorBurstEmitter _shockwaveEmitter;
 	public Material shockwaveMaterial;
 	
-	public ParticleRenderMode renderMode;
+	//public ParticleRenderMode renderMode;
 		
 	override public void Init()
 	{

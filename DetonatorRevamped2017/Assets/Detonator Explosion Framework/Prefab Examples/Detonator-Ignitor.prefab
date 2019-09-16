@@ -5,11 +5,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 400000}
-  - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  - component: {fileID: 11400002}
   m_Layer: 0
   m_Name: Detonator-Ignitor
   m_TagString: Untagged
@@ -27,11 +27,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.2288876, y: -4.58802414, z: 38.6350098}
+  m_LocalPosition: {x: 19.228888, y: -4.588024, z: 38.63501}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1002 &400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 10
-  color: {r: 1, g: .423000008, b: 0, a: 1}
+  color: {r: 1, g: 0.423, b: 0, a: 1}
   explodeOnStart: 1
   duration: 3
   detail: 1
@@ -105,8 +106,8 @@ MonoBehaviour:
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   detailThreshold: 0
-  radius: 27.2159424
-  power: 3872.51685
+  radius: 27.215942
+  power: 3872.5168
   fireObject: {fileID: 100000, guid: 49d7999f9fb85954c9541f9a0b0486c3, type: 2}
   fireObjectLife: 30
 --- !u!1002 &11400003
@@ -123,7 +124,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1
 --- !u!1002 &100100001
 EditorExtensionImpl:
   serializedVersion: 6

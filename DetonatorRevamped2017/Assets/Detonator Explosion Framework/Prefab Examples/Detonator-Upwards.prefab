@@ -114,8 +114,7 @@ MonoBehaviour:
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 200, y: 200, z: 200}
   detailThreshold: 0
-  sprayObject: {fileID: 1633454251242882, guid: 7d84ced170ec90a4691f97760c3e73fb,
-    type: 2}
+  sprayObject: {fileID: 100004, guid: 5cae1a02f5362443284e452c3020967f, type: 2}
   count: 33
   startingRadius: 5
   minScale: 0.2004919

@@ -27,7 +27,6 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	private GradientColorKey[] _psCoLGradientColor;
 	private ParticleSystem.LimitVelocityOverLifetimeModule _psVelocityOverLifetime;
 	private ParticleSystem.SizeOverLifetimeModule _psSizeOverLifetime;
-	private ParticleSystem.RotationOverLifetimeModule _psRotationOverLifetime;
 	private AnimationCurve _psSoLCurve = new AnimationCurve();
 	private ParticleSystem.MinMaxCurve _psSoLMMCurve;
 	ParticleSystemRenderMode _psRenderMode = ParticleSystemRenderMode.Billboard;
@@ -95,7 +94,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		_psSizeOverLifetime = _particleSystem.sizeOverLifetime;
 		_psColorOverLifetime = _particleSystem.colorOverLifetime;
 		_psShape = _particleSystem.shape;
-		_psRotationOverLifetime = _particleSystem.rotationOverLifetime;
+		//_psRotationOverLifetime = _particleSystem.rotationOverLifetime;
 
 		_psMain.loop = false;
 		//_psMain.startLifetime = 2f;
@@ -117,9 +116,8 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		_psShape.shapeType = ParticleSystemShapeType.Sphere;
 		_psShape.radius = 0.1f;
 
-		_psRotationOverLifetime.enabled = true;
-		_psRotationOverLifetime.separateAxes = true; //This is only used because Angular Velocity can't be set anywhere...
-		//_psRotationOverLifetime.z = Random.Range(5f, 20f); //Check this
+		//_psRotationOverLifetime.enabled = false;
+		//_psRotationOverLifetime.separateAxes = true; //This is only used because Angular Velocity can't be set anywhere...
 
 		_psRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 		_psRenderer.receiveShadows = true;
@@ -151,10 +149,10 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		//Temp curve, need to check if this is accurate
 		_psSoLCurve.AddKey(0.0f, 0.1f);
         //_psSoLCurve.AddKey(0.75f, 1f);
-        _psSoLCurve.AddKey(0.25f, 1.9f);
-        _psSoLCurve.AddKey(1f, 2.1f); //This is affected by size grow, unsure of how that affects
+        _psSoLCurve.AddKey(0.25f, .7f);
+        _psSoLCurve.AddKey(1.0f, 1.0f); //This is affected by size grow, unsure of how that affects
 		//_psSoLMMCurve = new ParticleSystem.MinMaxCurve(sizeGrow, _psSoLCurve);
-		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(1, _psSoLCurve);
+		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(2, _psSoLCurve);
 		_psSizeOverLifetime.size = _psSoLMMCurve;
 
         //_particleEmitter.emit = false;
