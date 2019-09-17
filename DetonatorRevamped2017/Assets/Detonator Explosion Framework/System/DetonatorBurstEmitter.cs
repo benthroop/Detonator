@@ -27,7 +27,9 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	private GradientColorKey[] _psCoLGradientColor;
 	private ParticleSystem.LimitVelocityOverLifetimeModule _psVelocityOverLifetime;
 	private ParticleSystem.SizeOverLifetimeModule _psSizeOverLifetime;
-	private AnimationCurve _psSoLCurve = new AnimationCurve();
+	[Tooltip ("If left as false, SizeOverLifetieme will be set to a linear line")]
+	public bool useExplicitSizeCurve = false;
+	public AnimationCurve SizeOverLifetimeCurve = new AnimationCurve();
 	private ParticleSystem.MinMaxCurve _psSoLMMCurve;
 	ParticleSystemRenderMode _psRenderMode = ParticleSystemRenderMode.Billboard;
 
@@ -114,12 +116,14 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		_psRenderer.material = material;
 		_psRenderer.material.color = Color.white;
 
-		//Temp curve, need to allow for inspector editing next
-		_psSoLCurve.AddKey(0.0f, 0.1f);
-        _psSoLCurve.AddKey(0.25f, .7f); //Comment this out for a linear curve, like if shockwave is bad
-        _psSoLCurve.AddKey(1.0f, 1.0f);
+		//Defaulting to a linear curve
+		if (!useExplicitSizeCurve)
+		{
+			SizeOverLifetimeCurve.AddKey(0.0f, 0.1f);
+			SizeOverLifetimeCurve.AddKey(1.0f, 1.0f);
+		}	
 
-		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(2, _psSoLCurve);
+		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(2, SizeOverLifetimeCurve);
 		_psSizeOverLifetime.size = _psSoLMMCurve;
 		
 		if (explodeOnAwake)
