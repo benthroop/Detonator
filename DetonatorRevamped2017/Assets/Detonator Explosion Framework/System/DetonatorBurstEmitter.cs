@@ -116,7 +116,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
 
 		//Temp curve, need to allow for inspector editing next
 		_psSoLCurve.AddKey(0.0f, 0.1f);
-        _psSoLCurve.AddKey(0.25f, .7f);
+        _psSoLCurve.AddKey(0.25f, .7f); //Comment this out for a linear curve, like if shockwave is bad
         _psSoLCurve.AddKey(1.0f, 1.0f);
 
 		_psSoLMMCurve = new ParticleSystem.MinMaxCurve(2, _psSoLCurve);

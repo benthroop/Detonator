@@ -291,7 +291,12 @@ public class Detonator : MonoBehaviour {
 	public static Material DefaultFireballAMaterial()
 	{
 		if (defaultFireballAMaterial != null) return defaultFireballAMaterial;
-        defaultFireballAMaterial = new Material(Shader.Find("Particles/Additive"));
+        //defaultFireballAMaterial = new Material(Shader.Find("Particles/Additive"));
+		if (Shader.Find("Particles/Additive"))
+			defaultFireballAMaterial = new Material(Shader.Find("Particles/Additive"));
+		else if (Shader.Find("Legacy Shaders/Particles/Additive"))
+			defaultFireballAMaterial = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
+
 		defaultFireballAMaterial.name = "FireballA-Default";
         Texture2D tex = Resources.Load("Detonator/Textures/Fireball") as Texture2D;
 		defaultFireballAMaterial.SetColor("_TintColor", Color.white);
@@ -303,7 +308,11 @@ public class Detonator : MonoBehaviour {
 	public static Material DefaultFireballBMaterial()
 	{
 		if (defaultFireballBMaterial != null) return defaultFireballBMaterial;
-        defaultFireballBMaterial =  new Material(Shader.Find("Particles/Additive"));
+        //defaultFireballBMaterial =  new Material(Shader.Find("Particles/Additive"));
+		if (Shader.Find("Particles/Additive"))
+			defaultFireballBMaterial = new Material(Shader.Find("Particles/Additive"));
+		else if (Shader.Find("Legacy Shaders/Particles/Additive"))
+			defaultFireballBMaterial = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
 		defaultFireballBMaterial.name = "FireballB-Default";
         Texture2D tex = Resources.Load("Detonator/Textures/Fireball") as Texture2D;
 		defaultFireballBMaterial.SetColor("_TintColor", Color.white);
@@ -316,7 +325,12 @@ public class Detonator : MonoBehaviour {
 	public static Material DefaultSmokeAMaterial()
 	{
 		if (defaultSmokeAMaterial != null) return defaultSmokeAMaterial;
-        defaultSmokeAMaterial = new Material(Shader.Find("Particles/Alpha Blended"));
+        //defaultSmokeAMaterial = new Material(Shader.Find("Particles/Alpha Blended"));
+		if (Shader.Find("Particles/Alpha Blended"))
+			defaultSmokeAMaterial = new Material(Shader.Find("Particles/Alpha Blended"));
+		else if (Shader.Find("Legacy Shaders/Particles/Alpha Blended"))
+			defaultSmokeAMaterial = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended"));
+
 		defaultSmokeAMaterial.name = "SmokeA-Default";
         Texture2D tex = Resources.Load("Detonator/Textures/Smoke") as Texture2D;
 		defaultSmokeAMaterial.SetColor("_TintColor", Color.white);
@@ -328,7 +342,12 @@ public class Detonator : MonoBehaviour {
 	public static Material DefaultSmokeBMaterial()
 	{
 		if (defaultSmokeBMaterial != null) return defaultSmokeBMaterial;
-        defaultSmokeBMaterial = new Material(Shader.Find("Particles/Alpha Blended"));
+        //defaultSmokeBMaterial = new Material(Shader.Find("Particles/Alpha Blended"));
+		if (Shader.Find("Particles/Alpha Blended"))
+			defaultSmokeBMaterial = new Material(Shader.Find("Particles/Alpha Blended"));
+		else if (Shader.Find("Legacy Shaders/Particles/Alpha Blended"))
+			defaultSmokeBMaterial = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended"));
+		
 		defaultSmokeBMaterial.name = "SmokeB-Default";
         Texture2D tex = Resources.Load("Detonator/Textures/Smoke") as Texture2D;
 		defaultSmokeBMaterial.SetColor("_TintColor", Color.white);
@@ -341,7 +360,12 @@ public class Detonator : MonoBehaviour {
 	public static Material DefaultSparksMaterial()
 	{
 		if (defaultSparksMaterial != null) return defaultSparksMaterial;
-        defaultSparksMaterial = new Material(Shader.Find("Particles/Additive"));
+        //defaultSparksMaterial = new Material(Shader.Find("Particles/Additive"));
+		if (Shader.Find("Particles/Additive"))
+			defaultSparksMaterial = new Material(Shader.Find("Particles/Additive"));
+		else if (Shader.Find("Legacy Shaders/Particles/Additive"))
+			defaultSparksMaterial = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
+
 		defaultSparksMaterial.name = "Sparks-Default";
         Texture2D tex = Resources.Load("Detonator/Textures/GlowDot") as Texture2D;
 		defaultSparksMaterial.SetColor("_TintColor", Color.white);
@@ -352,7 +376,12 @@ public class Detonator : MonoBehaviour {
 	public static Material DefaultShockwaveMaterial()
 	{	
 		if (defaultShockwaveMaterial != null) return defaultShockwaveMaterial;
-        defaultShockwaveMaterial = new Material(Shader.Find("Particles/Additive"));
+        //defaultShockwaveMaterial = new Material(Shader.Find("Particles/Additive"));
+		if (Shader.Find("Particles/Additive"))
+			defaultShockwaveMaterial = new Material(Shader.Find("Particles/Additive"));
+		else if (Shader.Find("Legacy Shaders/Particles/Additive"))
+			defaultShockwaveMaterial = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
+
 		defaultShockwaveMaterial.name = "Shockwave-Default";
         Texture2D tex = Resources.Load("Detonator/Textures/Shockwave") as Texture2D;
 		defaultShockwaveMaterial.SetColor("_TintColor", new Color(0.1f,0.1f,0.1f,1f));
@@ -363,7 +392,12 @@ public class Detonator : MonoBehaviour {
 	public static Material DefaultGlowMaterial()
 	{
 		if (defaultGlowMaterial != null) return defaultGlowMaterial;
-        defaultGlowMaterial = new Material(Shader.Find("Particles/Additive"));
+        //defaultGlowMaterial = new Material(Shader.Find("Particles/Additive"));
+		if (Shader.Find("Particles/Additive"))
+			defaultGlowMaterial = new Material(Shader.Find("Particles/Additive"));
+		else if (Shader.Find("Legacy Shaders/Particles/Additive"))
+			defaultGlowMaterial = new Material(Shader.Find("Legacy Shaders/Particles/Additive"));
+		
 		defaultGlowMaterial.name = "Glow-Default";
         Texture2D tex = Resources.Load("Detonator/Textures/Glow") as Texture2D;
 		defaultGlowMaterial.SetColor("_TintColor", Color.white);
