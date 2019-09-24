@@ -1,7 +1,0 @@
-1) Detonator is created (from prefab)
-2) Fills with default materials if none are assigned pre-runtime
-3) Adds components if there are none (and auto is on) and then calls Reset()
-4) Reset() fills compnent with materials and sets defaults
-5) When Explode() is called, UpdateComponents() is called first
-6) Calls Init() for each component 
-7) Init() then builds all the componets as gameObjects and places them as a child on the Detonator prefab
