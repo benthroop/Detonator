@@ -17,6 +17,9 @@ public class DetonatorSparks : DetonatorComponent
 	private DetonatorBurstEmitter _sparksEmitter;
 	public Material sparksMaterial;
 		
+	public bool isFlipbook;
+	public Vector2 gridSize;
+
 	override public void Init()
 	{
 		//make sure there are materials at all
@@ -33,6 +36,12 @@ public class DetonatorSparks : DetonatorComponent
 		}
 	}
 
+	public void SetFlipbookStatus(bool flipbookStatus, Vector2 passedGridSize)
+	{
+		isFlipbook = flipbookStatus;
+		gridSize = passedGridSize;
+	}
+
 	//Build these to look correct at the stock Detonator size of 10m... then let the size parameter
 	//cascade through to the emitters and let them do the scaling work... keep these absolute.
     public void BuildSparks()
@@ -43,6 +52,7 @@ public class DetonatorSparks : DetonatorComponent
 		_sparks.transform.localPosition = localPosition;
 		_sparks.transform.localRotation = Quaternion.identity;
 		_sparksEmitter.material = sparksMaterial;
+		_sparksEmitter.isFlipbook = isFlipbook;
 		_sparksEmitter.force = Physics.gravity / 3; //don't fall fast - these are sparks
 		_sparksEmitter.useExplicitColorAnimation = false;
 		_sparksEmitter.useWorldSpace = MyDetonator().useWorldSpace;

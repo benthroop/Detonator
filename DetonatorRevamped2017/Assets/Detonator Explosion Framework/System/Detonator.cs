@@ -38,13 +38,15 @@ using System.Collections;
 	@ben_throop
 */
 
+//This script uses the custom inspector "DetonatorCustomInspector.cs"
+//Any public values added/removed here would also need to be replicated in that file
 [AddComponentMenu("Detonator/Detonator")]
 public class Detonator : MonoBehaviour {
 
 	private static float _baseSize = 30f;
 	private static Color _baseColor = new Color(1f, .423f, 0f, .5f);
 	private static float _baseDuration = 3f;
-	
+
 	/*
 		_baseSize reflects the size that DetonatorComponents at size 1 match. Yes, this is really big (30m)
 		size below is the default Detonator size, which is more reasonable for typical useage. 
@@ -62,12 +64,26 @@ public class Detonator : MonoBehaviour {
 	public Vector3 direction = Vector3.zero;
 	
 	public Material fireballAMaterial;
+	public bool isFireballAFlipbook;
+	public Vector2 fireballAFlipbookSize = Vector2.one;
 	public Material fireballBMaterial;
+	public bool isFireballBFlipbook;
+	public Vector2 fireballBFlipbookSize = Vector2.one;
 	public Material smokeAMaterial;
+	public bool isSmokeAFlipbook;
+	public Vector2 smokeAFlipbookSize = Vector2.one;
 	public Material smokeBMaterial;
+	public bool isSmokeBFlipbook;
+	public Vector2 smokeBFlipbookSize = Vector2.one;
 	public Material shockwaveMaterial;
+	public bool isShockwaveFlipbook;
+	public Vector2 shockwaveFlipbookSize = Vector2.one;
 	public Material sparksMaterial;
+	public bool isSparksFlipbook;
+	public Vector2 sparksFlipbookSize = Vector2.one;
 	public Material glowMaterial;
+	public bool isGlowFlipbook;
+	public Vector2 glowFlipbookSize = Vector2.one;
 	public Material heatwaveMaterial;
 		
     private Component[] components;
@@ -179,6 +195,8 @@ public class Detonator : MonoBehaviour {
 		}
 		
 		components = this.GetComponents(typeof(DetonatorComponent));
+
+		SetUpFlipbookSupport();
 	}
 	
 	void FillDefaultMaterials()
@@ -191,6 +209,17 @@ public class Detonator : MonoBehaviour {
 		if (!sparksMaterial) sparksMaterial = DefaultSparksMaterial();
 		if (!glowMaterial) glowMaterial = DefaultGlowMaterial();
 		if (!heatwaveMaterial) heatwaveMaterial = DefaultHeatwaveMaterial();
+	}
+
+	void SetUpFlipbookSupport()
+	{
+		if (_fireball) _fireball.SetFlipbookAStatus(isFireballAFlipbook, fireballAFlipbookSize);
+		if (_fireball) _fireball.SetFlipbookBStatus(isFireballBFlipbook, fireballBFlipbookSize);
+		if (_smoke) _smoke.SetFlipbookAStatus(isSmokeAFlipbook, smokeAFlipbookSize);
+		if (_smoke)_smoke.SetFlipbookBStatus(isSmokeBFlipbook, smokeBFlipbookSize);
+		if (_shockwave)_shockwave.SetFlipbookStatus(isShockwaveFlipbook, shockwaveFlipbookSize);
+		if (_sparks)_sparks.SetFlipbookStatus(isSparksFlipbook, sparksFlipbookSize);
+		if (_glow)_glow.SetFlipbookStatus(isGlowFlipbook, glowFlipbookSize);
 	}
 	
 	void Start()

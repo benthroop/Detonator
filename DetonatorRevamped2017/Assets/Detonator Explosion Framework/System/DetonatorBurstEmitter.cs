@@ -31,6 +31,7 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	public bool useExplicitSizeCurve = false;
 	public AnimationCurve SizeOverLifetimeCurve = new AnimationCurve();
 	private ParticleSystem.MinMaxCurve _psSoLMMCurve;
+	private ParticleSystem.TextureSheetAnimationModule _psTextureSheet;
 	ParticleSystemRenderMode _psRenderMode = ParticleSystemRenderMode.Billboard;
 
 	private float _baseDamping = 0.1300004f;
@@ -61,6 +62,9 @@ public class DetonatorBurstEmitter : DetonatorComponent
 	
 	public Material material;
 	
+	public bool isFlipbook = false;
+	public Vector2 gridSize;
+
 	//unused
 	override public void Init() 
 	{
@@ -115,6 +119,9 @@ public class DetonatorBurstEmitter : DetonatorComponent
 		_psRenderer.maxParticleSize = maxScreenSize;
 		_psRenderer.material = material;
 		_psRenderer.material.color = Color.white;
+		
+		//Texture sheet info
+		_psTextureSheet = _particleSystem.textureSheetAnimation;
 
 		//Defaulting to a linear curve
 		if (!useExplicitSizeCurve)
@@ -180,7 +187,15 @@ public class DetonatorBurstEmitter : DetonatorComponent
     override public void Explode()
     {
 		if (on)
-		{			
+		{		
+			if (isFlipbook)
+			{
+				_psTextureSheet.enabled = true;				
+
+				_psTextureSheet.numTilesX = (int)gridSize.x;
+				_psTextureSheet.numTilesY = (int)gridSize.y;
+			}
+
 			if (useWorldSpace)
 				_psMain.simulationSpace = ParticleSystemSimulationSpace.World; 
 			else			

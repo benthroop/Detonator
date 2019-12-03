@@ -27,6 +27,11 @@ public class DetonatorFireball : DetonatorComponent
 	public bool drawFireballA = true;
 	public bool drawFireballB = true;
 	public bool drawFireShadow = true;
+
+	public bool isAFlipbook;
+	public bool isBFlipbook;
+	public Vector2 AGridSize;
+	public Vector2 BGridSize;
 	
 	override public void Init()
 	{
@@ -60,6 +65,20 @@ public class DetonatorFireball : DetonatorComponent
 			}
 		}
 	}
+
+	public void SetFlipbookAStatus(bool flipbookStatus, Vector2 gridSize)
+	{
+		isAFlipbook = flipbookStatus;
+
+		AGridSize = gridSize;
+	}
+
+	public void SetFlipbookBStatus(bool flipbookStatus, Vector2 gridSize)
+	{
+		isBFlipbook = flipbookStatus;
+
+		BGridSize = gridSize;
+	}
 	
 	private Color _detailAdjustedColor;
 	
@@ -72,6 +91,8 @@ public class DetonatorFireball : DetonatorComponent
 		_fireballA.transform.parent = this.transform;
 		_fireballA.transform.localRotation = Quaternion.identity;
 		_fireballAEmitter.material = fireballAMaterial;
+		_fireballAEmitter.isFlipbook = isAFlipbook;
+		_fireballAEmitter.gridSize = AGridSize;
 		_fireballAEmitter.useWorldSpace = MyDetonator().useWorldSpace;
 		_fireballAEmitter.upwardsBias = MyDetonator().upwardsBias;
     }
@@ -114,6 +135,8 @@ public class DetonatorFireball : DetonatorComponent
 		_fireballB.transform.parent = this.transform;
 		_fireballB.transform.localRotation = Quaternion.identity;
 		_fireballBEmitter.material = fireballBMaterial;
+		_fireballBEmitter.isFlipbook = isBFlipbook;
+		_fireballBEmitter.gridSize = BGridSize;
 		_fireballBEmitter.useWorldSpace = MyDetonator().useWorldSpace;
 		_fireballBEmitter.upwardsBias = MyDetonator().upwardsBias;
     }

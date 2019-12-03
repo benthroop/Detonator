@@ -14,6 +14,9 @@ public class DetonatorGlow : DetonatorComponent
 	private GameObject _glow;
 	private DetonatorBurstEmitter _glowEmitter;
 	public Material glowMaterial;
+
+	public bool isFlipbook;
+	public Vector2 gridSize;
 		
 	override public void Init()
 	{
@@ -30,6 +33,12 @@ public class DetonatorGlow : DetonatorComponent
 			glowMaterial = MyDetonator().glowMaterial;
 		}
 	}
+
+	public void SetFlipbookStatus(bool flipbookStatus, Vector2 passedGridSize)
+	{
+		isFlipbook = flipbookStatus;
+		gridSize = passedGridSize;
+	}
 	
 	//Build these to look correct at the stock Detonator size of 10m... then let the size parameter
 	//cascade through to the emitters and let them do the scaling work... keep these absolute.
@@ -40,6 +49,7 @@ public class DetonatorGlow : DetonatorComponent
 		_glow.transform.parent = this.transform;
 		_glow.transform.localPosition = localPosition;
 		_glowEmitter.material = glowMaterial;
+		_glowEmitter.isFlipbook = isFlipbook;
 		_glowEmitter.exponentialGrowth = false;
 		_glowEmitter.useExplicitColorAnimation = true;
 		_glowEmitter.useWorldSpace = MyDetonator().useWorldSpace;

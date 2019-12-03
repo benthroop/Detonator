@@ -13,6 +13,9 @@ public class DetonatorShockwave : DetonatorComponent
 	private GameObject _shockwave;
 	private DetonatorBurstEmitter _shockwaveEmitter;
 	public Material shockwaveMaterial;
+
+	public bool isFlipbook;
+	public Vector2 gridSize;
 		
 	override public void Init()
 	{
@@ -29,6 +32,12 @@ public class DetonatorShockwave : DetonatorComponent
 			shockwaveMaterial = MyDetonator().shockwaveMaterial;
 		}
 	}
+
+	public void SetFlipbookStatus(bool flipbookStatus, Vector2 passedGridSize)
+	{
+		isFlipbook = flipbookStatus;
+		gridSize = passedGridSize;
+	}
 	
 	//Build these to look correct at the stock Detonator size of 10m... then let the size parameter
 	//cascade through to the emitters and let them do the scaling work... keep these absolute.
@@ -40,6 +49,8 @@ public class DetonatorShockwave : DetonatorComponent
 		_shockwave.transform.localRotation = Quaternion.identity;
 		_shockwave.transform.localPosition = localPosition;
 		_shockwaveEmitter.material = shockwaveMaterial;
+		_shockwaveEmitter.isFlipbook = isFlipbook;
+		_shockwaveEmitter.gridSize = gridSize;
 		_shockwaveEmitter.exponentialGrowth = false;
 		_shockwaveEmitter.useWorldSpace = MyDetonator().useWorldSpace;
     }
