@@ -32,6 +32,8 @@ public class DetonatorFireball : DetonatorComponent
 	public bool isBFlipbook;
 	public Vector2 AGridSize;
 	public Vector2 BGridSize;
+
+	public bool useExplicitColorAnimation = true;
 	
 	override public void Init()
 	{
@@ -111,7 +113,7 @@ public class DetonatorFireball : DetonatorComponent
 		_fireballAEmitter.velocity = velocity;
 		_fireballAEmitter.startRadius = 4f;
 		_fireballAEmitter.size = size;		
-		_fireballAEmitter.useExplicitColorAnimation = true;
+		_fireballAEmitter.useExplicitColorAnimation = useExplicitColorAnimation;
 
 		//make the starting colors more intense, towards white
 		Color fadeWhite = new Color(1f, 1f, 1f, .5f);
@@ -155,7 +157,7 @@ public class DetonatorFireball : DetonatorComponent
 		_fireballBEmitter.velocity = velocity;
 		_fireballBEmitter.startRadius = 4f;
 		_fireballBEmitter.size = size;
-		_fireballBEmitter.useExplicitColorAnimation = true;
+		_fireballBEmitter.useExplicitColorAnimation = useExplicitColorAnimation;
 
 		//make the starting colors more intense, towards white
 		Color fadeWhite = new Color(1f, 1f, 1f, .5f);

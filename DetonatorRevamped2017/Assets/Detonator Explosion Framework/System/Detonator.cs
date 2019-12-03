@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /*
 
@@ -88,14 +89,14 @@ public class Detonator : MonoBehaviour {
 		
     private Component[] components;
 
-	private DetonatorFireball _fireball;
-	private DetonatorSparks _sparks;
-	private DetonatorShockwave _shockwave;
-	private DetonatorSmoke _smoke;
-	private DetonatorGlow _glow;
-	private DetonatorLight _light;
-	private DetonatorForce _force;
-	private DetonatorHeatwave _heatwave;
+	private List<DetonatorFireball> _fireball = new List<DetonatorFireball>();
+	private List<DetonatorSmoke> _smoke = new List<DetonatorSmoke>();
+	private List<DetonatorShockwave> _shockwave = new List<DetonatorShockwave>();
+	private List<DetonatorSparks> _sparks = new List<DetonatorSparks>();
+	private List<DetonatorGlow> _glow = new List<DetonatorGlow>();
+	private List<DetonatorHeatwave> _heatwave = new List<DetonatorHeatwave>();
+	private List<DetonatorLight> _light = new List<DetonatorLight>();
+	private List<DetonatorForce> _force = new List<DetonatorForce>();
 	public bool autoCreateFireball = true;
 	public bool autoCreateSparks = true;
 	public bool autoCreateShockwave = true;
@@ -114,84 +115,84 @@ public class Detonator : MonoBehaviour {
 		{
 			if (dc is DetonatorFireball)
 			{
-				_fireball = dc as DetonatorFireball;
+				_fireball.Add(dc as DetonatorFireball);
 			}
 			if (dc is DetonatorSparks)
 			{
-				_sparks = dc as DetonatorSparks;
+				_sparks.Add(dc as DetonatorSparks);
 			}
 			if (dc is DetonatorShockwave)
 			{
-				_shockwave = dc as DetonatorShockwave;
+				_shockwave.Add(dc as DetonatorShockwave);
 			}
 			if (dc is DetonatorSmoke)
 			{
-				_smoke = dc as DetonatorSmoke;
+				_smoke.Add(dc as DetonatorSmoke);
 			}
 			if (dc is DetonatorGlow)
 			{
-				_glow = dc as DetonatorGlow;
+				_glow.Add(dc as DetonatorGlow);
 			}
 			if (dc is DetonatorLight)
 			{
-				_light = dc as DetonatorLight;
+				_light.Add(dc as DetonatorLight);
 			}
 			if (dc is DetonatorForce)
 			{
-				_force = dc as DetonatorForce;
+				_force.Add(dc as DetonatorForce);
 			}
 			if (dc is DetonatorHeatwave)
 			{
-				_heatwave = dc as DetonatorHeatwave;
+				_heatwave.Add(dc as DetonatorHeatwave);
 			}
 		}
 		
-		if (!_fireball && autoCreateFireball)
+		if (_fireball.Count == 0 && autoCreateFireball)
 		{
-			_fireball = gameObject.AddComponent<DetonatorFireball>() as DetonatorFireball;
-			_fireball.Reset();
+			_fireball.Add(gameObject.AddComponent<DetonatorFireball>() as DetonatorFireball);
+			_fireball[0].Reset();
 		}
 		
-		if (!_smoke && autoCreateSmoke)
+		if (_smoke.Count == 0 && autoCreateSmoke)
 		{
-			_smoke = gameObject.AddComponent<DetonatorSmoke>() as DetonatorSmoke;
-			_smoke.Reset();
+			_smoke.Add(gameObject.AddComponent<DetonatorSmoke>() as DetonatorSmoke);
+			_smoke[0].Reset();
 		}
 		
-		if (!_sparks && autoCreateSparks)
+		if (_sparks.Count == 0 && autoCreateSparks)
 		{
-			_sparks = gameObject.AddComponent<DetonatorSparks>() as DetonatorSparks;
-			_sparks.Reset();
+			_sparks.Add(gameObject.AddComponent<DetonatorSparks>() as DetonatorSparks);
+			_sparks[0].Reset();
 		}
 		
-		if (!_shockwave && autoCreateShockwave)
+		if (_shockwave.Count == 0 && autoCreateShockwave)
 		{
-			_shockwave = gameObject.AddComponent<DetonatorShockwave>() as DetonatorShockwave;
-			_shockwave.Reset();
+			_shockwave.Add(gameObject.AddComponent<DetonatorShockwave>() as DetonatorShockwave);
+			_shockwave[0].Reset();
 		}
 		
-		if (!_glow && autoCreateGlow)
+		if (_glow.Count == 0 && autoCreateGlow)
 		{
-			_glow = gameObject.AddComponent<DetonatorGlow>() as DetonatorGlow;
-			_glow.Reset();
+			_glow.Add(gameObject.AddComponent<DetonatorGlow>() as DetonatorGlow);
+			_glow[0].Reset();
 		}
 		
-		if (!_light && autoCreateLight)
+		if (_light.Count == 0 && autoCreateLight)
 		{
-			_light = gameObject.AddComponent<DetonatorLight>() as DetonatorLight;
-			_light.Reset();
+			_light.Add(gameObject.AddComponent<DetonatorLight>() as DetonatorLight);
+			_light[0].Reset();
 		}
 		
-		if (!_force && autoCreateForce)
+		if (_force.Count == 0 && autoCreateForce)
 		{
-			_force = gameObject.AddComponent<DetonatorForce>() as DetonatorForce;
-			_force.Reset();
+			_force.Add(gameObject.AddComponent<DetonatorForce>() as DetonatorForce);
+			_force[0].Reset();
 		}
 
-        if (!_heatwave && autoCreateHeatwave && SystemInfo.supportsImageEffects)
+        if (_heatwave.Count == 0 && autoCreateHeatwave && SystemInfo.supportsImageEffects)
 		{
-			_heatwave = gameObject.AddComponent<DetonatorHeatwave>() as DetonatorHeatwave;
-			_heatwave.Reset();
+			_heatwave.Add(gameObject.AddComponent<DetonatorHeatwave>() as DetonatorHeatwave);
+			_heatwave[0].Reset();
 		}
 		
 		components = this.GetComponents(typeof(DetonatorComponent));
@@ -213,13 +214,37 @@ public class Detonator : MonoBehaviour {
 
 	void SetUpFlipbookSupport()
 	{
-		if (_fireball) _fireball.SetFlipbookAStatus(isFireballAFlipbook, fireballAFlipbookSize);
-		if (_fireball) _fireball.SetFlipbookBStatus(isFireballBFlipbook, fireballBFlipbookSize);
-		if (_smoke) _smoke.SetFlipbookAStatus(isSmokeAFlipbook, smokeAFlipbookSize);
-		if (_smoke)_smoke.SetFlipbookBStatus(isSmokeBFlipbook, smokeBFlipbookSize);
-		if (_shockwave)_shockwave.SetFlipbookStatus(isShockwaveFlipbook, shockwaveFlipbookSize);
-		if (_sparks)_sparks.SetFlipbookStatus(isSparksFlipbook, sparksFlipbookSize);
-		if (_glow)_glow.SetFlipbookStatus(isGlowFlipbook, glowFlipbookSize);
+		if (_fireball.Count > 0) 
+		{
+			foreach (DetonatorFireball dc in _fireball)
+			{
+				dc.SetFlipbookAStatus(isFireballAFlipbook, fireballAFlipbookSize);
+				dc.SetFlipbookBStatus(isFireballBFlipbook, fireballBFlipbookSize);
+			}
+		}
+		if (_smoke.Count > 0) 
+		{
+			foreach (DetonatorSmoke dc in _smoke)
+			{
+				dc.SetFlipbookAStatus(isSmokeAFlipbook, smokeAFlipbookSize);
+				dc.SetFlipbookBStatus(isSmokeBFlipbook, smokeBFlipbookSize);
+			}
+		}
+		if (_shockwave.Count > 0)
+		{
+			foreach (DetonatorShockwave dc in _shockwave)
+				dc.SetFlipbookStatus(isShockwaveFlipbook, shockwaveFlipbookSize);
+		}
+		if (_sparks.Count > 0)
+		{
+			foreach (DetonatorSparks dc in _sparks)
+				dc.SetFlipbookStatus(isSparksFlipbook, sparksFlipbookSize);
+		}
+		if (_glow.Count > 0)
+		{
+			foreach (DetonatorGlow dc in _glow)
+				dc.SetFlipbookStatus(isGlowFlipbook, glowFlipbookSize);
+		}
 	}
 	
 	void Start()
