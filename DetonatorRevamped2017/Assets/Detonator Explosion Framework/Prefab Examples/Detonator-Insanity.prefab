@@ -64,12 +64,26 @@ MonoBehaviour:
   useWorldSpace: 1
   direction: {x: 0, y: 0.24, z: 0}
   fireballAMaterial: {fileID: 0}
+  isFireballAFlipbook: 0
+  fireballAFlipbookSize: {x: 8, y: 8}
   fireballBMaterial: {fileID: 0}
+  isFireballBFlipbook: 0
+  fireballBFlipbookSize: {x: 8, y: 8}
   smokeAMaterial: {fileID: 0}
+  isSmokeAFlipbook: 0
+  smokeAFlipbookSize: {x: 1, y: 1}
   smokeBMaterial: {fileID: 0}
+  isSmokeBFlipbook: 0
+  smokeBFlipbookSize: {x: 1, y: 1}
   shockwaveMaterial: {fileID: 0}
+  isShockwaveFlipbook: 0
+  shockwaveFlipbookSize: {x: 1, y: 1}
   sparksMaterial: {fileID: 0}
+  isSparksFlipbook: 0
+  sparksFlipbookSize: {x: 1, y: 1}
   glowMaterial: {fileID: 0}
+  isGlowFlipbook: 0
+  glowFlipbookSize: {x: 1, y: 1}
   heatwaveMaterial: {fileID: 0}
   autoCreateFireball: 1
   autoCreateSparks: 1
@@ -190,6 +204,8 @@ MonoBehaviour:
   velocity: {x: 400, y: 400, z: 400}
   detailThreshold: 0
   sparksMaterial: {fileID: 0}
+  isFlipbook: 0
+  gridSize: {x: 0, y: 0}
 --- !u!1002 &11400007
 EditorExtensionImpl:
   serializedVersion: 6
@@ -225,7 +241,8 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   detailThreshold: 0
   shockwaveMaterial: {fileID: 0}
-  renderMode: 4
+  isFlipbook: 0
+  gridSize: {x: 0, y: 0}
 --- !u!1002 &11400009
 EditorExtensionImpl:
   serializedVersion: 6
@@ -266,6 +283,11 @@ MonoBehaviour:
   drawFireballA: 1
   drawFireballB: 1
   drawFireShadow: 1
+  isAFlipbook: 0
+  isBFlipbook: 0
+  AGridSize: {x: 0, y: 0}
+  BGridSize: {x: 0, y: 0}
+  useExplicitColorAnimation: 1
 --- !u!1002 &11400011
 EditorExtensionImpl:
   serializedVersion: 6
@@ -306,6 +328,11 @@ MonoBehaviour:
   drawFireballA: 1
   drawFireballB: 1
   drawFireShadow: 1
+  isAFlipbook: 0
+  isBFlipbook: 0
+  AGridSize: {x: 0, y: 0}
+  BGridSize: {x: 0, y: 0}
+  useExplicitColorAnimation: 1
 --- !u!1002 &11400013
 EditorExtensionImpl:
   serializedVersion: 6

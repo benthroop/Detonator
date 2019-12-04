@@ -545,6 +545,7 @@ MonoBehaviour:
   - {fileID: 100000, guid: 67e5b9f09995840449c988b145cc1d7b, type: 2}
   - {fileID: 100000, guid: 809320482fb694b6e8149a226202b86a, type: 2}
   - {fileID: 100000, guid: 8e02e06584f51ab42986fd44c73d976e, type: 2}
+  - {fileID: 1837187983444348, guid: 21dd2ad4b6df0f245a80562c8297973b, type: 2}
   explosionLife: 20
   timeScale: 1
   detailLevel: 1
